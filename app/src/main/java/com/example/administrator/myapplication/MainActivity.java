@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     if (iMyService != null){
                         int a = iMyService.add(1,2);
-                        textView.setText(String.valueOf(a));
+                        textView.setText("本地调用远程添加数字 : " + String.valueOf(a));
+                    }else{
+                        toast("未绑定服务！");
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     NotifyCallBack callBack = new NotifyCallBack.Stub() {
         @Override
         public void notifyCall(String a, String b) throws RemoteException {
-            textView1.setText(a+b);
+            textView1.setText("更新远程信息 : " + a+b);
         }
     };
 
@@ -76,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(MainActivity.this, "Service connected", Toast.LENGTH_LONG).show();
+            toast("服务绑定成功！");
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             iMyService = null;
-            Toast.makeText(MainActivity.this, "Service disconnected", Toast.LENGTH_LONG).show();
+            toast("服务解绑！");
         }
     }
 
@@ -90,9 +92,10 @@ public class MainActivity extends AppCompatActivity {
         connection = new MyConnection();
         Intent i = new Intent();
         i.setClassName("com.example.myapplication", "com.example.myapplication.MyService");
-        Log.e("aa" , " 111 ");
-        bindService(i, connection, Context.BIND_AUTO_CREATE);
-        Log.e("aa" , " 222 ");
+        boolean b = bindService(i, connection, Context.BIND_AUTO_CREATE);
+        if (!b){
+            toast("未找到该服务！");
+        }
     }
 
     public void unBindService(){
@@ -101,6 +104,10 @@ public class MainActivity extends AppCompatActivity {
             connection = null;
             iMyService = null;
         }
+    }
+
+    public void toast(String message){
+        Toast.makeText(MainActivity.this , message , Toast.LENGTH_SHORT).show();
     }
 
 }

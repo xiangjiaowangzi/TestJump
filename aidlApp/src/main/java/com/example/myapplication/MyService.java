@@ -16,20 +16,20 @@ import android.util.Log;
 
 public class MyService extends Service {
 
-    String a = "开始" ,b = "开始" ;
+    String text1 = "开始";
+    String text2 = "开始";
 
     private RemoteCallbackList<NotifyCallBack> callbackList = new RemoteCallbackList<>();
 
-
-    Binder binder = new IMyService.Stub(){
+    Binder binder = new IMyService.Stub() {
 
         @Override
         public int add(int value1, int value2) throws RemoteException {
-            Log.e("aa" ,  " value1 + value2 "  + value1 + value2 );
-            if (callbackList.getRegisteredCallbackCount() > 0){
-                notifyCallBack(a,b);
+            Log.e("aa", " value1 + value2 " + value1 + value2);
+            if (callbackList.getRegisteredCallbackCount() > 0) {
+                notifyCallBack(text1,text2);
             }
-            return value1 + value2 ;
+            return value1 + value2;
         }
 
         @Override
@@ -38,11 +38,11 @@ public class MyService extends Service {
         }
     };
 
-    private void notifyCallBack(String a , String b){
+    private void notifyCallBack(String a, String b) {
         int len = callbackList.beginBroadcast();
-        for (int i = 0; i < len ; i ++){
+        for (int i = 0; i < len; i++) {
             try {
-                callbackList.getBroadcastItem(i).notifyCall(a , b);
+                callbackList.getBroadcastItem(i).notifyCall(a, b);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -52,16 +52,14 @@ public class MyService extends Service {
 
     @Override
     public void onCreate() {
-        Log.e("aa" ,  " onCreate ");
         super.onCreate();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        a = intent.getStringExtra("a");
-        b = intent.getStringExtra("b");
-        notifyCallBack(a,b);
-        Log.e("aa" , " a " + a + " b " +b);
+        text1 = intent.getStringExtra("text1");
+        text2 = intent.getStringExtra("text2");
+        notifyCallBack(text1, text2);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -71,10 +69,15 @@ public class MyService extends Service {
         return binder;
     }
 
-    public static void startService(Context context , String a , String b){
-        Intent intent = new Intent(context , MyService.class);
-        intent.putExtra("a" , a);
-        intent.putExtra("b" , b);
+    /**
+     * @param context
+     * @param text1
+     * @param text2
+     */
+    public static void startService(Context context, String text1 , String text2) {
+        Intent intent = new Intent(context, MyService.class);
+        intent.putExtra("text1", text1);
+        intent.putExtra("text2", text2);
         context.startService(intent);
     }
 }

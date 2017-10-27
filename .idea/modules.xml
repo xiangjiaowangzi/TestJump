@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TestJump.iml" filepath="$PROJECT_DIR$/TestJump.iml" />
+      <module fileurl="file://E:\study\code\android\mygithub\TestJump\TestJump.iml" filepath="E:\study\code\android\mygithub\TestJump\TestJump.iml" />
       <module fileurl="file://$PROJECT_DIR$/aidlApp/aidlApp.iml" filepath="$PROJECT_DIR$/aidlApp/aidlApp.iml" />
+      <module fileurl="file://E:\study\code\android\mygithub\TestJump\aidlApp\aidlApp.iml" filepath="E:\study\code\android\mygithub\TestJump\aidlApp\aidlApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\study\code\android\mygithub\TestJump\app\app.iml" filepath="E:\study\code\android\mygithub\TestJump\app\app.iml" />
     </modules>
   </component>
 </project>
