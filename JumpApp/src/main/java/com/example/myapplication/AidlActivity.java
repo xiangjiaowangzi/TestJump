@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends AppCompatActivity {
+public class AidlActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String a = editText1.getText().toString();
                 String b = editText2.getText().toString();
-                MyService.startService(MainActivity.this , a , b);
+                MyService.startService(AidlActivity.this , a , b);
             }
         });
     }
